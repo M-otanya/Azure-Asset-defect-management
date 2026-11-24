@@ -1,0 +1,4 @@
+azure-functions>=1.21,<2
+azure-identity>=1.17,<2
+azure-cosmos>=4.6,<5
+azure-keyvault-secrets>=4.8,<5

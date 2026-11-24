@@ -1,0 +1,51 @@
+ASSET / DEFECT MANAGEMENT — AZURE LOCAL DEPLOYMENT QUICK START
+
+1. Install Azure CLI, Terraform 1.6+, Python 3.11, Azure Functions Core Tools v4.
+2. Open Windows PowerShell and navigate to this extracted folder.
+3. Run:
+
+   az login --use-device-code
+   az account set --subscription "<YOUR-SUBSCRIPTION-ID>"
+   az account show --output table
+
+4. Deploy. Replace T0123456789 with YOUR Slack workspace ID:
+
+   .\deploy.ps1 -SlackWorkspaceId "T0123456789"
+
+   Type APPLY after reviewing terraform plan and expected billable Azure services.
+
+5. Reuse your existing AWS Slack/Jira credentials in Azure Key Vault:
+
+   .\scripts\set-secrets.ps1
+
+6. Authorize your real Slack MEMBER ID (not workspace ID):
+
+   python -m pip install -r .\scripts\requirements.txt
+   python .\scripts\authorize-user.py U0123456789
+
+7. Get the deployed HTTPS URLs:
+
+   terraform -chdir=infrastructure output -raw slack_commands_url
+   terraform -chdir=infrastructure output -raw slack_interactions_url
+
+8. Configure existing Slack app:
+   /asset-agent, /defect-agent → Commands URL
+   Slack Interactivity → Interactions URL
+
+9. Test in Slack:
+
+   /defect-agent SCRUM-5 priority=Low
+
+   CANCEL first, then test Confirm with a different proposal if intended.
+
+10. To start Functions locally rather than deploy from your PC, read README.md
+    section 6. Requires Azurite and deployed Azure queues/Cosmos/Key Vault.
+
+11. Clean up Terraform-managed Azure resources (existing resource group remains):
+
+   .\destroy.ps1
+
+COST: Cosmos DB serverless, Service Bus Basic, Storage, Key Vault, Functions,
+and Application Insights may incur charges. The AI model is NOT auto-created.
+This is a best-effort source-based Azure port; first live deployment must be
+validated in your subscription. Keep Terraform state and secrets private.

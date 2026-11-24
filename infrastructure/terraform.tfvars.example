@@ -1,0 +1,7 @@
+# Optional settings. deploy.ps1 sets subscription_id and slack_workspace_id via TF_VAR_*.
+# resource_group_name = "asset-defect-dev-rg"
+# location            = "eastus2"
+# environment         = "dev"
+# defect_ai_required  = false
+# azure_openai_endpoint   = ""
+# azure_openai_deployment = ""

@@ -1,0 +1,16 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfbackend
+*.hcl.private
+.terraform.lock.hcl
+local.settings.json
+**/__pycache__/
+*.pyc
+.venv/
+.python_packages/
+.azure-build/
+*.zip
+applications/*/common/

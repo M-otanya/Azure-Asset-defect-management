@@ -1,0 +1,15 @@
+output "resource_group_name" { value = data.azurerm_resource_group.existing.name }
+output "ingress_function_app" { value = module.ingress.name }
+output "asset_worker_function_app" { value = module.asset_worker.name }
+output "defect_worker_function_app" { value = module.defect_worker.name }
+output "jira_executor_function_app" { value = module.jira_executor.name }
+output "slack_commands_url" { value = "https://${module.ingress.hostname}/api/slack/commands" }
+output "slack_interactions_url" { value = "https://${module.ingress.hostname}/api/slack/interactions" }
+output "cosmos_endpoint" { value = azurerm_cosmosdb_account.main.endpoint }
+output "cosmos_database" { value = azurerm_cosmosdb_sql_database.main.name }
+output "cosmos_authorization_container" { value = azurerm_cosmosdb_sql_container.containers["defect_authorization"].name }
+output "servicebus_namespace" { value = "${azurerm_servicebus_namespace.main.name}.servicebus.windows.net" }
+output "slack_key_vault" { value = azurerm_key_vault.secrets["slack"].name }
+output "jira_read_key_vault" { value = azurerm_key_vault.secrets["jira_read"].name }
+output "jira_write_key_vault" { value = azurerm_key_vault.secrets["jira_write"].name }
+output "storage_account_name" { value = azurerm_storage_account.functions.name }
